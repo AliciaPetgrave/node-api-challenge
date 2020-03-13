@@ -40,13 +40,24 @@ Demonstrate your understanding of this Sprint's concepts by answering the follow
 
 - [ ] Mention two parts of Express that you learned about this week.
 
+Routing - a way to select which request handler function is excecuted.
+Convenience Helpers - extension methods added to the request and response objects.
+
 - [ ] Describe Middleware?
+
+Middleware function can get the request and response objects, operate on them, and trigger some action.
 
 - [ ] Describe a Resource?
 
+Resource - data contained within an API. It's an object with a type, data and a set of methods that operate on it.
+
 - [ ] What can the API return to help clients know if a request was successful?
 
+The API can return a status and a message that  let's you know if a request was successful or unsuccessful.
+
 - [ ] How can we partition our application into sub-applications?
+
+We can use routing to select which handler function is excecuted and separate the app into smaller parts. It's based on the url visited and the http method used.
 
 ## Minimum Viable Product
 
