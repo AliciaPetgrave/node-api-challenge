@@ -18,7 +18,7 @@ router.get('/', (req, res) => {
 })
 
 //GET request for project actions good
-router.get('/:id', (req, res) => {
+router.get('/:id', validateId, (req, res) => {
     Projects.getProjectActions(req.params.id)
     .then(project => {
         res.status(200).json(project)
@@ -41,27 +41,41 @@ router.post('/', (req, res) => {
   });
 
 //DELETE request good
-router.delete('/:id', (req, res) => {
+router.delete('/:id', validateId, (req, res) => {
     Projects.remove(req.params.id)
     .then(project => {
       res.status(200).json(project);
     })
     .catch(error => {
       console.log(error);
-      res.status(500).json({message: 'Error adding the hub',});
+      res.status(500).json({message: 'Error adding the project',});
     });
   });
 
 //PUT request good
-router.put('/:id', (req, res) => {
+router.put('/:id', validateId, (req, res) => {
     Projects.update(req.params.id, req.body)
     .then(project => {
       res.status(200).json(project);
     })
     .catch(error => {
       console.log(error);
-      res.status(500).json({message: 'Error adding the hub',});
+      res.status(500).json({message: 'Error adding the project',});
     });
   });
+
+
+//custom middleware
+function validateId(req, res, next) {
+    Projects.get(req.params.id)
+    .then(id => {
+      if (id){
+        req.projects = id
+        next()
+      } else {
+        res.status(400).json({message: "missing id data"})
+      }
+    })
+  }
 
 module.exports = router
